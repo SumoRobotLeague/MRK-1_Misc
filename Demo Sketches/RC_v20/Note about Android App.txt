@@ -1,0 +1,5 @@
+Note:
+
+This Arduino sketch sets up the MRK-1 robot to communicate via the blue-tooth add-on with the Android App
+available for free after logging in ai2.appinventor.mit.edu/?galleryId=6576396456951808
+
