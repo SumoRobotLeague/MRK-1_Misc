@@ -20,7 +20,6 @@ void loop() {
   delayMicroseconds(2);
   digitalWrite(pingPin, HIGH);
   delayMicroseconds(5);
-  delayMicroseconds(10);   //manufacturer recommends at least 10 microseconds
   digitalWrite(pingPin, LOW);
 
   // record how long it takes to get an echo
