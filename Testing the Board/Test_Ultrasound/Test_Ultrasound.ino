@@ -1,12 +1,16 @@
 #define echo_Pin  8
 #define pingPin  7
 
+#define timeout 7000   //this timeout prevents the pulseIn function from waiting up to a second for a signal
+// Sound travels 120 cm in 7000 microseconds which is more than the diameter of the mini-class sumo ring, or Dohyo.
+// Any echoes received beyond this time would be irrelevant to mini-class sumo competition.  
+
 void setup() {
   Serial.begin(9600);
   pinMode(echo_Pin, INPUT);
   pinMode(pingPin, OUTPUT);
 
-  // initialize serial communication:
+  // initialize serial communication between the robot's arduino brain and your computer via USB cable
   Serial.begin(9600);
 }
 
@@ -14,33 +18,30 @@ void loop() {
 
   long duration, inches, cm;
 
-  // The PING))) is triggered by a HIGH pulse of 2 or more microseconds.
-  // Give a short LOW pulse beforehand to ensure a clean HIGH pulse:
+  // The PING))) or chirp of ultrasound is triggered by a HIGH pulse of at least 10 microseconds.
+  // Make sure the pin is LOW before and after to ensure a clean HIGH pulse:
   digitalWrite(pingPin, LOW);
   delayMicroseconds(2);
   digitalWrite(pingPin, HIGH);
   delayMicroseconds(10);   //manufacturer recommends at least 10 microseconds
   digitalWrite(pingPin, LOW);
 
-  // record how long it takes to get an echo
-  duration = pulseIn(echo_Pin, HIGH);
+  // record how long it takes to get an echo but only up to the timeout value which is in microseconds
+  duration = pulseIn(echo_Pin, HIGH, timeout);
 
   // convert the time into a distance
   inches = microsecondsToInches(duration);
   cm = microsecondsToCentimeters(duration);
 
+  //print out the results on a single line
+  Serial.print(duration);
+  Serial.println(" us,  ");
   Serial.print(inches);
-  delay(100);
-  Serial.print("in, ");
-  delay(100);
+  Serial.print(" in,  ");
   Serial.print(cm);
-  delay(100);
-  Serial.print("cm");
-  delay(100);
-  Serial.println();
-  delay(100);
+  Serial.println(" cm");  //println prints what is inside the ( ) and then cues up a new line for the next print or println command.
 
-  delay(500);
+  delay(500);  // delay so that you have time to read the printout in the serial monitor, remove this delay for competition
 }
 
 long microsecondsToInches(long microseconds)
