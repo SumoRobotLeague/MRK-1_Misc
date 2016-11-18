@@ -79,6 +79,12 @@ void loop() {
   
 }
 
+
+/***************************************************************/
+/**      Commands from Logo's TORTIS project,                 **/
+/** a pushbutton system for children to young to read and type**/
+/***************************************************************/
+
 // forward, aka FD
 void FD(int amt){{
   
@@ -99,6 +105,25 @@ void RT(int amt){
   
 }
 
+void toot(){
+
+}
+
+void pen_up(){
+  
+}
+
+void pen_down(){
+  
+}
+
+void light_on(){
+  
+}
+
+void light_off(){
+  
+}
 
 // play a Note, not an authentic Logo command, just fun to use.
 void NT(int note, int duration) {
